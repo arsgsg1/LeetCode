@@ -1,11 +1,6 @@
 # Definition for a binary tree node.
+# TC: O(n)
 from collections import defaultdict
-class TreeNode:
-    def __init__(self, x):
-        self.val = x
-        self.left = None
-        self.right = None
-
 class Solution:
     def distanceK(self, root: TreeNode, target: TreeNode, k: int) -> list[int]:
         answer = []
