@@ -1,16 +1,12 @@
-import heapq as hq
-N = int(input())
-q, visit = [], [False] * 10001
-answer = 0
-for _ in range(N):
-    p, d = map(int, input().split())
-    hq.heappush(q, (-p, d))
-while q:
-    p, d = hq.heappop(q)
-    p *= -1
-    for idx in range(d, 0, -1):
-        if not visit[idx]:
-            answer += p
-            visit[idx] = True
-            break
-print(answer)
+n, arr = int(input()), list(map(int, input().split()))
+s = int(input())
+
+for i in range(n):
+    Max = max(arr[i: min(n, i + s + 1)])
+    idx = arr.index(Max)
+    for j in range(idx, i, -1):
+        arr[j], arr[j - 1] = arr[j - 1], arr[j]
+    s -= (idx - i)
+    if s <= 0: break
+
+print(*arr)
