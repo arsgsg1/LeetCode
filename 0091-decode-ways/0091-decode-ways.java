@@ -1,19 +1,20 @@
-import java.util.Arrays;
-
 class Solution {
     public int numDecodings(String s) {
-        int[] dp = new int[s.length() + 1];
-        Arrays.fill(dp, 0);
-        dp[s.length()] = 1;
-        for(int start = s.length() - 1; start >= 0; start--) {
-            if (s.charAt(start) == '0') {
-                dp[start] = 0;
-            } else if (start + 1 < s.length() && Integer.parseInt(s.substring(start, start + 2)) <= 26) {
-                dp[start] = dp[start + 1] + dp[start + 2];
-            } else {
-                dp[start] = dp[start + 1];
+        int n = s.length();
+        int[] dp = new int[n + 1];
+        if (s.charAt(0) == '0') return 0;
+        dp[0] = 1;
+        dp[1] = 1;
+        for (int i = 2; i <= n; i++){
+            int oneDigit = Character.getNumericValue(s.charAt(i - 1));
+            int twoDigits = Integer.parseInt(s.substring(i - 2, i));
+            if (oneDigit != 0) {
+                dp[i] += dp[i - 1];
+            }
+            if (10 <= twoDigits && twoDigits <= 26) {
+                dp[i] += dp[i - 2];
             }
         }
-        return dp[0];
+        return dp[n];
     }
 }
