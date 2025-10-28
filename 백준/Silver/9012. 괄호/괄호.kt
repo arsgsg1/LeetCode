@@ -4,24 +4,27 @@ fun main() = with(System.`in`.bufferedReader()) {
     val N = readLine().toInt()
     repeat(N) {
         val str = readLine()
-        val stack = LinkedList<Char>()
-        str.forEach { ch ->
+        val stack = ArrayDeque<Char>()
+        var ok = true
+
+        for (ch in str) {
             when (ch) {
                 '(' -> stack.push(ch)
                 ')' -> {
                     if (stack.isNotEmpty() && stack.peek() == '(') {
                         stack.pop()
                     } else {
-                        stack.push(ch)
+                        ok = false
+                        break
                     }
                 }
             }
         }
-        
-        if (stack.isNotEmpty()) {
-            println("NO")
-        } else {
+
+        if (ok && stack.isEmpty()) {
             println("YES")
+        } else {
+            println("NO")
         }
     }
 }
